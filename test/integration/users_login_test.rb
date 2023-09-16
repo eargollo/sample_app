@@ -11,7 +11,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post login_path, params: { session: { email: "", password: "" } }
     assert_response :unprocessable_entity
     assert_template 'sessions/new'
-    post login_path, params: { session: { email: @user.email, password: "" } }
+    post login_path, params: { session: { email: @user.email, password: "in-valid" } }
     assert_response :unprocessable_entity
     assert_template 'sessions/new'
     assert_not flash.empty?
