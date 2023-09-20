@@ -66,6 +66,7 @@ class AccountActivationTest < UsersSignup
   test "should log in successfully with valid activation token and email" do
     get edit_account_activation_path(@user.activation_token, email: @user.email)
     assert @user.reload.activated?
+    assert_not_nil @user.activated_at
     follow_redirect!
     assert_template 'users/show'
     assert is_logged_in?
