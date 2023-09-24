@@ -69,7 +69,13 @@ class User < ApplicationRecord
 
     # Sends password reset email.
     def send_password_reset_email
-        UserMailer.passwords_reset(self).deliver_now
+        UserMailer.password_reset(self).deliver_now
+    end
+
+    # Returns true if a password reset has expired.
+    def password_reset_expired?
+        return true if reset_sent_at.nil?
+        self.reset_sent_at < 2.hours.ago
     end
 
     private
