@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   get '/contact', to: 'static_pages#contact'
 
   # Users
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   get '/signup', to: 'users#new'
 
   # Sessions
@@ -25,5 +29,6 @@ Rails.application.routes.draw do
 
   #microposts
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
   get '/microposts', to: 'static_pages#home'
 end
